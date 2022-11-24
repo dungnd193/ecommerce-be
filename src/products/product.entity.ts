@@ -33,8 +33,8 @@ export class Products {
   @Column()
   brand: string;
 
-  @Column()
-  discount: string;
+  @Column({ nullable: false, type: 'int', default: 0 })
+  discount: number;
 
   @Column()
   viewCount: number;

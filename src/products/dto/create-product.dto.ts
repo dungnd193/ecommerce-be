@@ -24,8 +24,8 @@ export class CreateProtducDto {
   @IsNotEmpty()
   brand: string;
 
-  @IsNotEmpty()
-  discount: string;
+  @IsOptional()
+  discount: number;
 
   @IsNotEmpty()
   viewCount: number;

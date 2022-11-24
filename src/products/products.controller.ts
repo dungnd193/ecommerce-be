@@ -26,7 +26,6 @@ export class ProductsController {
   getProductsPagination(
     @Query() query: GetProductDto,
   ): Promise<Paging<Products>> {
-    console.log(query);
     return this.productsService.getProducts(query);
   }
 

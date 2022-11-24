@@ -21,7 +21,8 @@ export class ProductsService {
   ) {}
 
   async getProducts(queryData: GetProductDto): Promise<Paging<Products>> {
-    const { page, size, sort, orderBy, start, end, colorId } = queryData;
+    const { page, size, sort, orderBy, start, end, colorId, categoryId, name } =
+      queryData;
 
     const paging = formatPaging(page, size, sort);
     const queryBuilder = this.productsRepository
@@ -35,10 +36,21 @@ export class ProductsService {
         .where('products.price >= :start', { start })
         .andWhere('products.price <= :end', { end });
     }
-
-    // if (colorId) {
-    //   queryBuilder.where('products.price = :colorId', { colorId });
-    // }
+    if (colorId) {
+      queryBuilder.where('products.quantity ::jsonb @> :quantity', {
+        quantity: JSON.stringify([{ colorId }]),
+      });
+    }
+    if (categoryId) {
+      queryBuilder.where('products.category ::jsonb @> :category', {
+        category: {
+          id: categoryId,
+        },
+      });
+    }
+    if (name) {
+      queryBuilder.where('products.name like :name', { name: `%${name}%` });
+    }
 
     const [products, total] = await queryBuilder.getManyAndCount();
 

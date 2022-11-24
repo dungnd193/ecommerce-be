@@ -21,4 +21,10 @@ export class GetProductDto {
 
   @IsOptional()
   colorId?: string;
+
+  @IsOptional()
+  categoryId?: string;
+
+  @IsOptional()
+  name?: string;
 }
