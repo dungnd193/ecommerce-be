@@ -10,6 +10,7 @@ import { CategoriesModule } from './categories/categories.module';
 import { ColorModule } from './color/color.module';
 import { SizeModule } from './size/size.module';
 import { UploadModule } from './upload/upload.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { UploadModule } from './upload/upload.module';
     ColorModule,
     SizeModule,
     UploadModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
