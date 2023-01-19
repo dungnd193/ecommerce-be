@@ -12,7 +12,7 @@ export class SizeController {
   }
 
   @Post()
-  createCategory(@Body() createColorDto: CreateSizeDto) {
-    return this.sizeService.createSize(createColorDto);
+  createCategory(@Body() createSizeDto: CreateSizeDto) {
+    return this.sizeService.createSize(createSizeDto);
   }
 }
