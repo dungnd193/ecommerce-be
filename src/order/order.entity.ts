@@ -33,6 +33,9 @@ export class Order {
   @Column()
   payment_method: string;
 
+  @Column({ type: 'real' })
+  discount: string;
+
   @Column('jsonb', { nullable: true })
   order_list: IOrderItem[];
 }

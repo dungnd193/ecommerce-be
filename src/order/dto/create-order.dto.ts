@@ -20,7 +20,7 @@ export class CreateOrderDto {
   @IsNotEmpty()
   email: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   note: string;
 
   @IsNotEmpty()
@@ -28,6 +28,9 @@ export class CreateOrderDto {
 
   @IsNotEmpty()
   payment_method: string;
+
+  @IsNotEmpty()
+  discount: string;
 
   @IsNotEmpty()
   order_list: IOrderItem[];

@@ -13,7 +13,7 @@ export class OrderController {
   }
 
   @Post()
-  createCategory(@Body() createColorDto: CreateOrderDto) {
+  createOrder(@Body() createColorDto: CreateOrderDto) {
     return this.orderService.createOrder(createColorDto);
   }
 
