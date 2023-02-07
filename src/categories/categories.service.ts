@@ -16,18 +16,6 @@ export class CategoriesService {
       'categories',
     );
 
-    // query.where({ user });
-
-    // if (status) {
-    //   query.where('task.status = :status', { status });
-    // }
-    // if (search) {
-    //   query.andWhere(
-    //     '(LOWER(task.title) LIKE LOWER(:search) OR LOWER(task.description) LIKE LOWER(:search))',
-    //     { search: `%${search}%` },
-    //   );
-    // }
-
     const categories = await query.getMany();
     return categories;
   }

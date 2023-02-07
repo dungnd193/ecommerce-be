@@ -1,15 +1,14 @@
-import { CreateFileDto } from './dto/create-file.dto';
 import {
   HttpException,
   HttpStatus,
   Injectable,
-  NotFoundException,
+  NotFoundException
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Upload } from './upload.entity';
 import * as fs from 'fs';
-import { IDeleteFile } from './type/upload.type';
+import { Repository } from 'typeorm';
+import { CreateFileDto } from './dto/create-file.dto';
+import { Upload } from './upload.entity';
 @Injectable()
 export class UploadService {
   constructor(

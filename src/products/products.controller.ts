@@ -17,10 +17,6 @@ import { Paging } from './type/products.type';
 @Controller('products')
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
-  // @Get()
-  // getProducts(): Promise<Products[]> {
-  //   return this.productsService.getProducts();
-  // }
 
   @Get()
   getProductsPagination(
@@ -35,12 +31,12 @@ export class ProductsController {
   }
 
   @Post()
-  createTask(@Body() createProductDto: CreateProtducDto): Promise<Products> {
+  createProduct(@Body() createProductDto: CreateProtducDto): Promise<Products> {
     return this.productsService.createProduct(createProductDto);
   }
 
   @Delete('/:id')
-  deleteTask(@Param('id') id: string): Promise<void> {
+  deleteProduct(@Param('id') id: string): Promise<void> {
     return this.productsService.deleteProduct(id);
   }
 

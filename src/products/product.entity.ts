@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { EProductStatus } from './product-status.enum';
+import { EProductStatus } from './type/product-status.enum';
 import { IQuantity } from './type/products.type';
 
 @Entity()

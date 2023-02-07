@@ -1,24 +1,24 @@
-import { CreateProtducDto } from './dto/create-product.dto';
 import {
   HttpException,
   HttpStatus,
   Injectable,
-  NotFoundException,
+  NotFoundException
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { createQueryBuilder, Repository } from 'typeorm';
-import { Products } from './product.entity';
-import { EProductStatus } from './product-status.enum';
-import { Paging } from './type/products.type';
-import { GetProductDto } from './dto/get-product.dto';
 import { formatPaging } from 'src/utils/formatter';
+import { Repository } from 'typeorm';
+import { CreateProtducDto } from './dto/create-product.dto';
+import { GetProductDto } from './dto/get-product.dto';
+import { EProductStatus } from './type/product-status.enum';
+import { Products } from './product.entity';
+import { Paging } from './type/products.type';
 
 @Injectable()
 export class ProductsService {
   constructor(
     @InjectRepository(Products)
     private productsRepository: Repository<Products>,
-  ) {}
+  ) { }
 
   async getProducts(queryData: GetProductDto): Promise<Paging<Products>> {
     const { page, size, sort, orderBy, start, end, colorId, categoryId, name } =
@@ -63,13 +63,6 @@ export class ProductsService {
     };
   }
 
-  // async getProducts(): Promise<Products[]> {
-  //   const query = this.productsRepository.createQueryBuilder('products');
-
-  //   const products = await query.getMany();
-  //   return products;
-  // }
-
   async getProductById(id: string): Promise<Products> {
     const product = await this.productsRepository.findOne({ where: { id } });
     if (!product) {
@@ -103,6 +96,9 @@ export class ProductsService {
 
   async updateProduct(id: string, product: Products): Promise<Products> {
     this.getProductById(id);
+    const isProductOutOfStock = product.quantity.every(item => !item.quantity)
+    if (isProductOutOfStock) { product.status = EProductStatus.OUT_OF_STOCK } 
+    else { product.status = EProductStatus.INSTOCK }
     const productUpdated = await this.productsRepository.save(product);
     return productUpdated;
   }

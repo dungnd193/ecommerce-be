@@ -53,7 +53,7 @@ export class UploadController {
   }
 
   @Delete('/:fileName')
-  deleteTask(@Param('fileName') fileName: string): Promise<void> {
+  deleteFile(@Param('fileName') fileName: string): Promise<void> {
     return this.uploadService.deleteFile(fileName);
   }
 }

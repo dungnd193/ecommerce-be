@@ -7,12 +7,12 @@ import { ColorService } from './color.service';
 export class ColorController {
   constructor(private colorService: ColorService) {}
   @Get()
-  getCategories(): Promise<Color[]> {
+  getColors(): Promise<Color[]> {
     return this.colorService.getColors();
   }
 
   @Post()
-  createCategory(@Body() createColorDto: CreateColorDto) {
+  createColor(@Body() createColorDto: CreateColorDto) {
     return this.colorService.createColor(createColorDto);
   }
 }

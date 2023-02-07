@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsOptional } from 'class-validator';
-import { EProductStatus } from '../product-status.enum';
+import { EProductStatus } from '../type/product-status.enum';
 import { IQuantity } from '../type/products.type';
 
 export class CreateProtducDto {

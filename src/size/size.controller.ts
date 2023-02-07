@@ -7,12 +7,12 @@ import { SizeService } from './size.service';
 export class SizeController {
   constructor(private sizeService: SizeService) {}
   @Get()
-  getCategories(): Promise<Size[]> {
+  getSizes(): Promise<Size[]> {
     return this.sizeService.getSizes();
   }
 
   @Post()
-  createCategory(@Body() createSizeDto: CreateSizeDto) {
+  createSize(@Body() createSizeDto: CreateSizeDto) {
     return this.sizeService.createSize(createSizeDto);
   }
 }
