@@ -40,7 +40,7 @@ export class UploadService {
     if (!result.affected) {
       throw new NotFoundException(`File "${fileName}" not found`);
     }
-    fs.unlink(`./uploads/${fileName}`, (err) => {
+    fs.unlink(`./uploads/product-images/${fileName}`, (err) => {
       if (err) throw Error('Delete file error');
       console.log(`fileName ${fileName} was deleted`);
     });

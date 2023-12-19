@@ -12,6 +12,7 @@ import { SizeModule } from './size/size.module';
 import { UploadModule } from './upload/upload.module';
 import { AuthModule } from './auth/auth.module';
 import { OrderModule } from './order/order.module';
+import { StorageModule } from './storage/storage.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { OrderModule } from './order/order.module';
     UploadModule,
     AuthModule,
     OrderModule,
+    StorageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

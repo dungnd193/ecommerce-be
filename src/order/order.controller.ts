@@ -1,8 +1,9 @@
 import { UpdateOrderStatusDto } from './dto/update-order-status.dto';
 import { OrderService } from './order.service';
-import { Body, Controller, Get, Param, Patch, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Put, Query } from '@nestjs/common';
 import { Order } from './order.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { GetSuccessfulOrdersInTimeRangeDto } from './dto/get-successful-orders-in-time-range.dto';
 
 @Controller('order')
 export class OrderController {
@@ -12,6 +13,13 @@ export class OrderController {
     return this.orderService.getOrders();
   }
 
+  @Get('rangeTime')
+  getSuccessfulOrdersInTimeRange(
+    @Query() dateRange: GetSuccessfulOrdersInTimeRangeDto
+  ): Promise<any[]> {
+    const { startDate, endDate, productId } = dateRange;
+    return this.orderService.getSuccessfulOrdersInTimeRange(startDate, endDate, productId);
+  }
   @Post()
   createOrder(@Body() createColorDto: CreateOrderDto) {
     return this.orderService.createOrder(createColorDto);

@@ -1,5 +1,5 @@
 import { IOrderItem } from './type/order.type';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Order {
@@ -38,4 +38,7 @@ export class Order {
 
   @Column('jsonb', { nullable: true })
   order_list: IOrderItem[];
+
+  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
 }

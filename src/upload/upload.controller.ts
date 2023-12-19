@@ -21,7 +21,7 @@ export class UploadController {
   @UseInterceptors(
     FilesInterceptor('image', undefined, {
       storage: diskStorage({
-        destination: './uploads',
+        destination: './uploads/product-images',
         filename: (req, file, callback) => {
           const uniqueSuffix =
             Date.now() + '-' + Math.round(Math.random() * 1e9);
@@ -32,7 +32,7 @@ export class UploadController {
       }),
     }),
   )
-  uploadImage(@UploadedFiles() files: Express.Multer.File[]) {
+  uploadProductImage(@UploadedFiles() files: Express.Multer.File[]) {
     const nameUrlImage = files.map((file) => {
       const upload = {
         fileName: file.filename,
@@ -47,9 +47,33 @@ export class UploadController {
     return { nameUrlImage };
   }
 
-  @Get('images/:fileName')
-  async getImage(@Param('fileName') fileName: string, @Res() res) {
-    res.sendFile(fileName, { root: './uploads' });
+  @Post('images/user')
+  @UseInterceptors(
+    FilesInterceptor('image', undefined, {
+      storage: diskStorage({
+        destination: './uploads/user-avatar',
+        filename: (req, file, callback) => {
+          const uniqueSuffix =
+            Date.now() + '-' + Math.round(Math.random() * 1e9);
+          const ext = extname(file.originalname);
+          const filename = `${uniqueSuffix}${ext}`;
+          callback(null, filename);
+        },
+      }),
+    }),
+  )
+  uploadUserAvatar(@UploadedFiles() files: Express.Multer.File[]) {
+    const nameUrlImage = files.map((file) => {
+      const upload = {
+        fileName: file.filename,
+        originalName: file.originalname,
+      };
+      this.uploadService.createFileUpload(upload);
+
+      return upload;
+    });
+
+    return { nameUrlImage };
   }
 
   @Delete('/:fileName')

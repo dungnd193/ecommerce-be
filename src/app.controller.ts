@@ -21,8 +21,13 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get('images/:filename')
-  async getImage(@Param('filename') filename, @Res() res) {
-    res.sendFile(filename, { root: './uploads' });
+  @Get('images/product-images/:filename')
+  async getProductImage(@Param('filename') filename, @Res() res) {
+    res.sendFile(filename, { root: './uploads/product-images' });
+  }
+  
+  @Get('images/user-avatar/:filename')
+  async getUserAvatar(@Param('filename') filename, @Res() res) {
+    res.sendFile(filename, { root: './uploads/user-avatar' });
   }
 }
