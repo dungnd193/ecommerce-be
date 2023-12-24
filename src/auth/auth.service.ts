@@ -69,7 +69,6 @@ export class AuthService {
     }
 
     const token = authorizationHeader.split(' ')[1];
-
     try {
       let payload = this.jwtService.verify(token);
 
@@ -79,11 +78,11 @@ export class AuthService {
       if (user) {
         payload = user; // Add other user-related information as needed
         delete payload.password
-        delete payload.id
       }
 
       return payload;
     } catch (error) {
+      console.log(error)
       throw new UnauthorizedException('Invalid token');
     }
   }

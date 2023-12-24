@@ -5,7 +5,7 @@ import { User } from './user.entity';
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
-
+  
   @Get('/userInfo')
   async getUserInfo(@Req() req: any): Promise<any> {
     const userInfo = await this.authService.getUserInfo(req);
