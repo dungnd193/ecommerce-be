@@ -25,7 +25,7 @@ export class OrderService {
   async getOrders(): Promise<Order[]> {
     const query = this.orderRepository.createQueryBuilder('order');
 
-    const orders = await query.getMany();
+    const orders = await query.orderBy({ 'order.createdAt': 'DESC' }).getMany();
     return orders;
   }
 
@@ -108,6 +108,20 @@ export class OrderService {
     }
   
     return daysArray;
+  }
+
+  async getOrdersByUserId(userId: string): Promise<Order[]> {
+    const query = this.orderRepository.createQueryBuilder('order');
+    const orders = await query
+      .where({
+        user_id: userId
+      })
+      .orderBy({
+        'order.createdAt': 'DESC'
+      })
+      .getMany();
+
+    return orders
   }
 
   async updateOrderStatus(id: string, status: EOrderStatus): Promise<Order> {

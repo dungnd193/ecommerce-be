@@ -4,6 +4,7 @@ import { Body, Controller, Get, Param, Patch, Post, Put, Query } from '@nestjs/c
 import { Order } from './order.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { GetSuccessfulOrdersInTimeRangeDto } from './dto/get-successful-orders-in-time-range.dto';
+import { GetOrdersByUserIdDto } from './dto/get-orders-by-user-id.dto';
 
 @Controller('order')
 export class OrderController {
@@ -11,6 +12,14 @@ export class OrderController {
   @Get()
   getOrders(): Promise<Order[]> {
     return this.orderService.getOrders();
+  }
+
+  @Get('my-orders')
+  getOrdersByUserId(
+    @Query() params: GetOrdersByUserIdDto
+  ): Promise<Order[]> {
+    const { userId } = params
+    return this.orderService.getOrdersByUserId(userId);
   }
 
   @Get('rangeTime')
