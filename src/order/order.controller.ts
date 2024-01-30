@@ -29,6 +29,12 @@ export class OrderController {
     const { startDate, endDate, productId } = dateRange;
     return this.orderService.getSuccessfulOrdersInTimeRange(startDate, endDate, productId);
   }
+
+  @Get('this-month')
+  getOrdersThisMonth(): Promise<any[]> {
+    return this.orderService.getOrdersThisMonth();
+  }
+
   @Post()
   createOrder(@Body() createColorDto: CreateOrderDto) {
     return this.orderService.createOrder(createColorDto);

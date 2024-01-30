@@ -1,6 +1,8 @@
 import { EOrderStatus } from './type/order.type';
 import {
   BadRequestException,
+  HttpException,
+  HttpStatus,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -47,7 +49,7 @@ export class OrderService {
             d.quantity -= order.quantity;
             if (d.quantity < 0) {
               // If the quantity becomes negative, return a custom error response
-              return Promise.reject('Vui long kiem tra lai so luong san pham ' + data.name);
+              throw new HttpException('Vui long kiem tra lai so luong san pham ' + data.name,  HttpStatus.BAD_REQUEST);
             }
           }
         }
@@ -122,6 +124,22 @@ export class OrderService {
       .getMany();
 
     return orders
+  }
+
+  async getOrdersThisMonth(): Promise<Order[]> {
+    const monthlyStartDate = new Date();
+    monthlyStartDate.setDate(1);
+    const monthlyEndDate = new Date();
+
+    const query = this.orderRepository.createQueryBuilder('order');
+    const ordersThisMonth = await query
+      .where({
+        status: 'COMPLETED',
+        createdAt: Between(monthlyStartDate, monthlyEndDate),
+      })
+      .getMany();
+
+    return ordersThisMonth;
   }
 
   async updateOrderStatus(id: string, status: EOrderStatus): Promise<Order> {
